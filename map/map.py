@@ -1,4 +1,5 @@
 import pygame
+from entity.gold import Gold
 from settings import WALL_COLOR, FLOOR_COLOR, TILE_SIZE
 
 # Map: 0 = floor, 1 = wall
@@ -33,6 +34,10 @@ class GameMap:
     def __init__(self):
         self.tile_size = TILE_SIZE
         self.map_data = BIG_MAP
+        self.entities = [
+            Gold(1, 2, amount=10),
+            Gold(3, 7, amount=20),
+        ]
 
 
     def draw(self, screen):
@@ -41,6 +46,9 @@ class GameMap:
                 color = WALL_COLOR if tile == 1 else FLOOR_COLOR
                 rect = pygame.Rect(x * self.tile_size, y * self.tile_size, self.tile_size, self.tile_size)
                 pygame.draw.rect(screen, color, rect)
+        
+        for entity in self.entities:
+            entity.draw(screen, self.tile_size)
 
 
     def can_be_passed(self, x, y):
