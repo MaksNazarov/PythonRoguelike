@@ -1,7 +1,7 @@
 import pygame
 from core.game_master import GameMaster
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS
-from entity.player import Player
+from entity.movable.player import Player
 from map.map import GameMap
     
 

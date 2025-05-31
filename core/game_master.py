@@ -1,7 +1,8 @@
 import pygame
 
+from entity.interactable.level_finish import LevelFinish
 from entity.interactable_entity import InteractableEntity
-from entity.player import Player
+from entity.movable.player import Player
 from map.map import GameMap
 
 
@@ -26,15 +27,24 @@ class GameMaster:
     def handle_interaction(self):
         for entity in self.game_map.entities:
             if isinstance(entity, InteractableEntity) and entity.x == self.player.x and entity.y == self.player.y: # TODO: clean up condition
-                _ = entity.interact(self.player)
-                if entity.remove_on_interact:
-                    self.game_map.entities.remove(entity)
+                success = entity.interact(self.player)
+                if success:
+                    if isinstance(entity, LevelFinish):
+                            self.advance_level()
+                    if entity.remove_on_interact:
+                        self.game_map.entities.remove(entity)
                 break
 
     def update(self):
         self.player.update_position(self.tile_size)
         if not self.player.moving:
             self.handle_interaction()
+
+    def advance_level(self):
+        """Moves player over to the next level if it exists; if not, makes him win"""
+        print("Advancing to the next level...")
+        self.game_map = GameMap() # TODO: load new map
+        self.player.x, self.player.y = 1, 1 # TODO: player position into map
 
     def draw(self):
         self.game_map.draw(self.screen)

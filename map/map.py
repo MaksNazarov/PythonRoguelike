@@ -1,13 +1,14 @@
 import pygame
-from entity.gold import Gold
+from entity.interactable.gold import Gold
+from entity.interactable.level_finish import LevelFinish
 from settings import WALL_COLOR, FLOOR_COLOR, TILE_SIZE
 
 # Map: 0 = floor, 1 = wall, 2 = gold
 SMALL_MAP = [
     [1, 1, 1, 1, 1],
     [1, 0, 0, 0, 1],
-    [1, 0, 0, 0, 1],
-    [1, 0, 0, 0, 1],
+    [1, 2, 0, 0, 4],
+    [1, 0, 0, 2, 1],
     [1, 1, 1, 1, 1],
 ]
 
@@ -20,7 +21,7 @@ BIG_MAP = [
     [1,0,1,0,1,1,1,1,1,1,1,0,1,0,1],
     [1,0,0,0,0,0,0,2,0,0,1,0,0,0,1],
     [1,1,1,1,1,1,1,0,1,1,1,1,1,0,1],
-    [1,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
+    [4,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
     [1,0,1,1,1,0,1,1,1,1,1,1,1,0,1],
     [1,0,0,0,1,0,0,2,0,0,0,0,1,0,1],
     [1,1,1,0,1,1,1,1,1,1,1,0,1,0,1],
@@ -44,6 +45,8 @@ class GameMap:
             for x, cell in enumerate(row):
                 if cell == 2: # TODO: dict/enum
                     self.entities.append(Gold(x, y))
+                elif cell == 4:  # ← Level finish
+                    self.entities.append(LevelFinish(x, y))
 
 
     def draw(self, screen):
