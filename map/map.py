@@ -5,7 +5,7 @@ from entity.interactable.level_finish import LevelFinish
 from entity.movable_entity import MovableEntity
 from settings import WALL_COLOR, FLOOR_COLOR, TILE_SIZE
 
-# Map: 0 = floor, 1 = wall, 2 = gold
+# Map: 0 = floor, 1 = wall, 2 = gold, 3 - level end, 4 - death block
 SMALL_MAP = [
     [1, 1, 1, 1, 1],
     [1, 0, 0, 0, 1],
