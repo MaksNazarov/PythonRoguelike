@@ -11,6 +11,5 @@ class LevelFinish(InteractableEntity):
         rect = pygame.Rect(self.x * tile_size, self.y * tile_size, tile_size, tile_size)
         pygame.draw.rect(screen, LEVEL_FINISH_COLOR, rect)
 
-    def interact(self, actor):
-        print("Player found the stairs to the next level!")
+    def interact(self, actor): # TODO: player check?
         return True

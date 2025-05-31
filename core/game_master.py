@@ -47,7 +47,7 @@ class GameMaster:
 
     def advance_level(self):
         """Moves player over to the next level if it exists; if not, makes him win"""
-        print("Advancing to the next level...")
+        print(f"Advancing to the level {self.player.state.level} with gold {self.player.state.gold}")
         self.game_map = GameMap() # TODO: load new map
         self.player.x, self.player.y = 1, 1 # TODO: player position into map
 
