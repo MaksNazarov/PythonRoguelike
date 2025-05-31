@@ -1,6 +1,7 @@
 import pygame
 from entity.interactable.gold import Gold
 from entity.interactable.level_finish import LevelFinish
+from entity.movable_entity import MovableEntity
 from settings import WALL_COLOR, FLOOR_COLOR, TILE_SIZE
 
 # Map: 0 = floor, 1 = wall, 2 = gold
@@ -60,7 +61,11 @@ class GameMap:
             entity.draw(screen, self.tile_size)
 
 
-    def can_be_passed(self, x, y):
+    def _can_be_passed(self, x, y):
         if 0 <= y < len(self.map_data) and 0 <= x < len(self.map_data[0]): # in bounds
             return self.map_data[y][x] != 1 # returns True if not a wall
         return False # out of bounds
+    
+
+    def can_be_moved(self, actor: MovableEntity, dx, dy):
+        return self._can_be_passed(actor.x + dx, actor.y + dy)

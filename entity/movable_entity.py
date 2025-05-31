@@ -1,6 +1,4 @@
-import pygame
 from entity.entity import Entity
-from map.map import GameMap
 from settings import TILE_SIZE
 
 class MovableEntity(Entity):
@@ -11,13 +9,10 @@ class MovableEntity(Entity):
         self.moving = False
         self.speed = 5  # pixels per frame
 
-    def move(self, dx, dy, game_map: GameMap):
-        new_x = self.x + dx
-        new_y = self.y + dy
-        if game_map.can_be_passed(new_x, new_y):
-            self.target_x = new_x
-            self.target_y = new_y
-            self.moving = True
+    def move(self, dx, dy):
+        self.target_x = self.x + dx
+        self.target_y = self.y + dy
+        self.moving = True
 
     def update_position(self, tile_size=TILE_SIZE):
         if self.moving:

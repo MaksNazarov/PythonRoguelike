@@ -15,18 +15,23 @@ class GameMaster:
 
     def handle_input(self, keys):
         if not self.player.moving:
+
+            movement = (0, 0)
             if keys[pygame.K_UP]:
-                self.player.move(0, -1, self.game_map)
+                movement = (0, -1)
             elif keys[pygame.K_DOWN]:
-                self.player.move(0, 1, self.game_map)
+                movement = (0, 1)
             elif keys[pygame.K_LEFT]:
-                self.player.move(-1, 0, self.game_map)
+                movement = (-1, 0)
             elif keys[pygame.K_RIGHT]:
-                self.player.move(1, 0, self.game_map)
+                movement = (1, 0)
+            
+            if self.game_map.can_be_moved(self.player, movement[0], movement[1]):
+                self.player.move(movement[0], movement[1])
 
     def handle_interaction(self):
         for entity in self.game_map.entities:
-            if isinstance(entity, InteractableEntity) and entity.x == self.player.x and entity.y == self.player.y: # TODO: clean up condition
+            if isinstance(entity, InteractableEntity) and entity.x == self.player.x and entity.y == self.player.y: # TODO: clean up condition: not only player can interact
                 success = entity.interact(self.player)
                 if success:
                     if isinstance(entity, LevelFinish):
