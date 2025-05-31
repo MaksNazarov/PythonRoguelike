@@ -1,7 +1,8 @@
 import pygame
+from core.game_master import GameMaster
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS
 from entity.player import Player
-from map import GameMap
+from map.map import GameMap
     
 
 if __name__ == "__main__":
@@ -11,6 +12,7 @@ if __name__ == "__main__":
 
     game_map = GameMap()
     player = Player(1, 1)
+    game_master = GameMaster(screen, game_map, player)
 
     running = True
     while running:
@@ -21,20 +23,8 @@ if __name__ == "__main__":
                 running = False
 
         keys = pygame.key.get_pressed()
-        if not player.moving:
-            if keys[pygame.K_UP]:
-                player.move(0, -1, game_map)
-            elif keys[pygame.K_DOWN]:
-                player.move(0, 1, game_map)
-            elif keys[pygame.K_LEFT]:
-                player.move(-1, 0, game_map)
-            elif keys[pygame.K_RIGHT]:
-                player.move(1, 0, game_map)
-
-        player.update_position()
-
-        game_map.draw(screen)
-        player.draw(screen)
-        pygame.display.flip()
+        game_master.handle_input(keys)
+        game_master.update()
+        game_master.draw()
 
     pygame.quit()

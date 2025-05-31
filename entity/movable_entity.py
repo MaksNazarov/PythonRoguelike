@@ -1,6 +1,6 @@
 import pygame
 from entity.entity import Entity
-from map import GameMap
+from map.map import GameMap
 from settings import TILE_SIZE
 
 class MovableEntity(Entity):
