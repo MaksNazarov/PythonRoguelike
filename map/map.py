@@ -2,7 +2,7 @@ import pygame
 from entity.gold import Gold
 from settings import WALL_COLOR, FLOOR_COLOR, TILE_SIZE
 
-# Map: 0 = floor, 1 = wall
+# Map: 0 = floor, 1 = wall, 2 = gold
 SMALL_MAP = [
     [1, 1, 1, 1, 1],
     [1, 0, 0, 0, 1],
@@ -16,17 +16,17 @@ BIG_MAP = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
     [1,0,1,1,0,1,0,1,1,1,1,1,1,0,1],
-    [1,0,1,0,0,0,0,0,0,0,0,0,1,0,1],
+    [1,2,1,0,0,0,0,0,0,0,0,0,1,0,1],
     [1,0,1,0,1,1,1,1,1,1,1,0,1,0,1],
-    [1,0,0,0,0,0,0,0,0,0,1,0,0,0,1],
+    [1,0,0,0,0,0,0,2,0,0,1,0,0,0,1],
     [1,1,1,1,1,1,1,0,1,1,1,1,1,0,1],
     [1,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
     [1,0,1,1,1,0,1,1,1,1,1,1,1,0,1],
-    [1,0,0,0,1,0,0,0,0,0,0,0,1,0,1],
+    [1,0,0,0,1,0,0,2,0,0,0,0,1,0,1],
     [1,1,1,0,1,1,1,1,1,1,1,0,1,0,1],
     [1,0,0,0,0,0,0,0,0,0,1,0,0,0,1],
     [1,0,1,1,1,1,1,1,1,0,1,1,1,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,2,0,0,0,0,0,0,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     ]
 
@@ -34,10 +34,16 @@ class GameMap:
     def __init__(self):
         self.tile_size = TILE_SIZE
         self.map_data = BIG_MAP
-        self.entities = [
-            Gold(1, 2, amount=10),
-            Gold(3, 7, amount=20),
-        ]
+        self.entities = []
+
+        self._load_entities()
+
+
+    def _load_entities(self):
+        for y, row in enumerate(self.map_data):
+            for x, cell in enumerate(row):
+                if cell == 2: # TODO: dict/enum
+                    self.entities.append(Gold(x, y))
 
 
     def draw(self, screen):
