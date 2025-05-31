@@ -1,4 +1,5 @@
 import pygame
+from map import GameMap
 from settings import PLAYER_COLOR, TILE_SIZE
 
 class Player:
@@ -11,10 +12,14 @@ class Player:
         self.moving = False
         self.speed = 5  # pixels per frame
 
-    def move(self, dx, dy):
-        self.target_x += dx
-        self.target_y += dy
-        self.moving = True
+    def move(self, dx, dy, game_map: GameMap):
+        new_x = self.x + dx
+        new_y = self.y + dy
+
+        if game_map.can_be_passed(new_x, new_y):
+            self.target_x = new_x
+            self.target_y = new_y
+            self.moving = True
 
     def update(self):
         if self.moving:

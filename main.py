@@ -23,13 +23,13 @@ if __name__ == "__main__":
         keys = pygame.key.get_pressed()
         if not player.moving:
             if keys[pygame.K_UP]:
-                player.move(0, -1)
+                player.move(0, -1, game_map)
             elif keys[pygame.K_DOWN]:
-                player.move(0, 1)
+                player.move(0, 1, game_map)
             elif keys[pygame.K_LEFT]:
-                player.move(-1, 0)
+                player.move(-1, 0, game_map)
             elif keys[pygame.K_RIGHT]:
-                player.move(1, 0)
+                player.move(1, 0, game_map)
 
         player.update()
 
