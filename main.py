@@ -1,6 +1,6 @@
 import pygame
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS
-from player import Player
+from entity.player import Player
 from map import GameMap
     
 
@@ -31,7 +31,7 @@ if __name__ == "__main__":
             elif keys[pygame.K_RIGHT]:
                 player.move(1, 0, game_map)
 
-        player.update()
+        player.update_position()
 
         game_map.draw(screen)
         player.draw(screen)
