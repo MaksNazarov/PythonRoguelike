@@ -1,5 +1,6 @@
 import pygame
 
+from entity.interactable.death_block import DeathBlock
 from entity.interactable.level_finish import LevelFinish
 from entity.interactable_entity import InteractableEntity
 from entity.movable.player import Player
@@ -35,7 +36,9 @@ class GameMaster:
                 success = entity.interact(self.player)
                 if success:
                     if isinstance(entity, LevelFinish):
-                            self.advance_level()
+                        self.advance_level()
+                    elif isinstance(entity, DeathBlock):
+                        self.reset()
                     if entity.remove_on_interact:
                         self.game_map.entities.remove(entity)
                 break
@@ -50,6 +53,13 @@ class GameMaster:
         print(f"Advancing to the level {self.player.state.level} with gold {self.player.state.gold}")
         self.game_map = GameMap() # TODO: load new map
         self.player.x, self.player.y = 1, 1 # TODO: player position into map
+
+    def reset(self):
+        """Resets player state"""
+        print("You lost!")
+        self.player.state.reset()
+        self.game_map = GameMap() # TODO: load first map/map generator
+        self.player.x, self.player.y = 1, 1
 
     def draw(self):
         self.game_map.draw(self.screen)

@@ -1,4 +1,5 @@
 import pygame
+from entity.interactable.death_block import DeathBlock
 from entity.interactable.gold import Gold
 from entity.interactable.level_finish import LevelFinish
 from entity.movable_entity import MovableEntity
@@ -16,15 +17,15 @@ SMALL_MAP = [
 
 BIG_MAP = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
+    [1,0,0,4,0,1,0,0,0,0,0,0,0,0,1],
     [1,0,1,1,0,1,0,1,1,1,1,1,1,0,1],
     [1,2,1,0,0,0,0,0,0,0,0,0,1,0,1],
     [1,0,1,0,1,1,1,1,1,1,1,0,1,0,1],
-    [1,0,0,0,0,0,0,2,0,0,1,0,0,0,1],
+    [1,0,2,0,0,0,0,2,0,0,1,0,0,0,1],
     [1,1,1,1,1,1,1,0,1,1,1,1,1,0,1],
-    [4,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
+    [3,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
     [1,0,1,1,1,0,1,1,1,1,1,1,1,0,1],
-    [1,0,0,0,1,0,0,2,0,0,0,0,1,0,1],
+    [1,4,0,0,1,0,0,2,0,0,0,0,1,0,1],
     [1,1,1,0,1,1,1,1,1,1,1,0,1,0,1],
     [1,0,0,0,0,0,0,0,0,0,1,0,0,0,1],
     [1,0,1,1,1,1,1,1,1,0,1,1,1,0,1],
@@ -46,8 +47,10 @@ class GameMap:
             for x, cell in enumerate(row):
                 if cell == 2: # TODO: dict/enum
                     self.entities.append(Gold(x, y))
-                elif cell == 4:  # ← Level finish
+                elif cell == 3:
                     self.entities.append(LevelFinish(x, y))
+                elif cell == 4:
+                    self.entities.append(DeathBlock(x, y))
 
 
     def draw(self, screen):
