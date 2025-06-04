@@ -3,6 +3,7 @@ import pygame
 from entity.interactable.death_block import DeathBlock
 from entity.interactable.level_finish import LevelFinish
 from entity.interactable_entity import InteractableEntity
+from entity.movable.enemy import Enemy
 from entity.movable.player import Player
 from map.map import GameMap
 
@@ -39,6 +40,9 @@ class GameMaster:
                         self.advance_level()
                     elif isinstance(entity, DeathBlock):
                         self.reset()
+                    elif isinstance(entity, Enemy):
+                        print("You died!")
+                        self.reset()
                     if entity.remove_on_interact:
                         self.game_map.entities.remove(entity)
                 break
@@ -46,7 +50,11 @@ class GameMaster:
     def update(self):
         self.player.update_position(self.tile_size)
         if not self.player.moving:
-            self.handle_interaction()
+            self.handle_interaction() # TODO: refactor, looks bad
+        for entity in self.game_map.entities:
+            if isinstance(entity, Enemy):
+                entity.update(self.game_map, self.player)
+                entity.update_position()
 
     def advance_level(self):
         """Moves player over to the next level if it exists; if not, makes him win"""

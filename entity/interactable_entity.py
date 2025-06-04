@@ -1,6 +1,6 @@
-from entity.static_entity import StaticEntity
+from entity.entity import Entity
 
-class InteractableEntity(StaticEntity):
+class InteractableEntity(Entity):
     remove_on_interact: bool
 
     def __init__(self, x, y, remove_on_interact=False):

@@ -2,6 +2,7 @@ import pygame
 from entity.interactable.death_block import DeathBlock
 from entity.interactable.gold import Gold
 from entity.interactable.level_finish import LevelFinish
+from entity.movable.enemy import Enemy
 from entity.movable_entity import MovableEntity
 from settings import WALL_COLOR, FLOOR_COLOR, TILE_SIZE
 
@@ -10,7 +11,7 @@ SMALL_MAP = [
     [1, 1, 1, 1, 1],
     [1, 0, 0, 0, 1],
     [1, 2, 0, 0, 4],
-    [1, 0, 0, 2, 1],
+    [1, 0, 0, 5, 1],
     [1, 1, 1, 1, 1],
 ]
 
@@ -19,7 +20,7 @@ BIG_MAP = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,0,0,4,0,1,0,0,0,0,0,0,0,0,1],
     [1,0,1,1,0,1,0,1,1,1,1,1,1,0,1],
-    [1,2,1,0,0,0,0,0,0,0,0,0,1,0,1],
+    [1,2,1,0,0,0,0,0,0,0,0,5,1,0,1],
     [1,0,1,0,1,1,1,1,1,1,1,0,1,0,1],
     [1,0,2,0,0,0,0,2,0,0,1,0,0,0,1],
     [1,1,1,1,1,1,1,0,1,1,1,1,1,0,1],
@@ -51,6 +52,8 @@ class GameMap:
                     self.entities.append(LevelFinish(x, y))
                 elif cell == 4:
                     self.entities.append(DeathBlock(x, y))
+                elif cell == 5:
+                    self.entities.append(Enemy(x, y))
 
 
     def draw(self, screen):
