@@ -42,8 +42,36 @@ The project caters to old-school games fans, e.g. Pacman players, while trying t
 
 ## 8. Data description
 
-Map data: sizes and colors, objects (gold, death blocks) points and their placement (coords).
-Movable entities (player and NPCs): coords, statuses, ?(abilities availability flags).
+### 8.1 Data categories
+
+Three data categories are planned for use:
+
+1. persistent data - saved b/w runs
+2. runtime game state - is in memory during gameplay
+3. asset data - static game resources
+
+### 8.2 Persistent data
+Following data is planned to be stored consistently: 
+- configured settings: resolution, key bindings
+- level generation seed: int
+- max player score: int
+
+### 8.3 Runtime game state
+This data is held in memory during gameplay:
+
+|data entity|fields|
+|-|-|
+current game state| state: Enum(in menu/playing/paused/game over)
+player state| health: int, position: (int, int), inventory: [item], abilities: [abilities]
+level state| number: int, seed: int, map: GameMap, entities: [entity], items: [item]
+entity states| type: string, health: int, position: (int, int), ai state: Enum
+
+### 8.4 Assed data
+Is loaded from assets/ directory:
+- player and enemy sprites
+- map textures
+- JSON-based enemy configs with base params
+
 
 ## 9. Pattern description
 1. Builder: map creation step-by-step
