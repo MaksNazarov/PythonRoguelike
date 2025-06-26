@@ -22,10 +22,25 @@ Non-functional requirements:
 
 ## 3. Use cases
 
-Following roles are considered during the development:
+### 3.1 Actors
+Following actors/roles are considered during the development:
 * Player: installs and runs the game without modifications to the files.
-* Developer/modification author:  extends the game functionality, adds new NPCs/features/
-* NPCs: Targets player and tries to kill him. (TODO: remove?)
+* Developer/modification author:  extends the game functionality, adds new NPCs/features/...
+
+### 3.2 Use cases by role
+
+#### 3.2.1 Player
+
+1. Start a new game: when a game is installed correctly, player can select "New game" and load a level.
+2. Move the player character: while a level is loaded and the game is active, player can move to unblocked tiles; while moving on a tile with item or monster, item is collected or combat is initiated
+3. Die and restart: when the player’s health reaches 0, all progress is reset, and the game returns to the main menu.
+
+
+#### 3.2.2 Developer/modder
+
+1. Add new enemy types: by defining enemy stats (health, AI, sprite) in JSON, modders can introduce new enemies that have a chance to spwan during level generation.
+2. Create custom items: modders can add consumable/equippable items by specifying effects (e.g., healing, teleportation), sprites and various flags (e.g. consume on use) in JSON.
+
 
 ## 4. User description, target audience
 
@@ -71,6 +86,7 @@ Is loaded from assets/ directory:
 - player and enemy sprites
 - map textures
 - JSON-based enemy configs with base params
+- JSON-based item configs with sprites, names, effects and various flags (e.g., consume on use)
 
 
 ## 9. Pattern description
