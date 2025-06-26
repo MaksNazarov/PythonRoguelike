@@ -32,11 +32,14 @@ Following roles are considered during the development:
 The project caters to old-school games fans, e.g. Pacman players, while trying to catch a fresher hipster auditory with newer roguelike design.
 
 ## 5. Component diagram
-![Component Diagram](docs/component_diagram.jpg)
+![Component Diagram](../docs/img/component_diagram.jpg)
+
 ## 6. Class diagram
-![Component Diagram](docs/class_diagram.jpg)
+![Component Diagram](../docs/img/class_diagram.jpg)
+
 ## 7. Interactions and states ()
-![Component Diagram](docs/state_diagram.jpg)
+![Component Diagram](../docs/img/state_diagram.jpg)
+
 ## 8. Data description
 
 Map data: sizes and colors, objects (gold, death blocks) points and their placement (coords).
